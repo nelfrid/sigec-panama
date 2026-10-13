@@ -1,0 +1,298 @@
+﻿<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SIGEC · Sistema de Gestión de Incidencias Comunitarias</title>
+  <meta name="description" content="Reporta, consulta y da seguimiento a los problemas de tu comunidad en Panamá.">
+  <meta name="theme-color" content="#128a4e">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="assets/hero.jpg" fetchpriority="high">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Iconos (sprite SVG) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-plus-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></symbol>
+    <symbol id="i-check-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 2.8 2.8L16.5 9.5"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.2a6.5 6.5 0 0 1 3.5 5.8"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 3h4M6 7l1 13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1l1-13M10 11v6M14 11v6"/></symbol>
+    <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3s6 6.4 6 11a6 6 0 0 1-12 0c0-4.6 6-11 6-11z"/><path d="M9.5 15a2.5 2.5 0 0 0 2.5 2.5"/></symbol>
+    <symbol id="i-road" viewBox="0 0 24 24"><path d="M8 3 4 21M16 3l4 18M12 4v3M12 10.5v3M12 17v3"/></symbol>
+    <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.8.6 1.1 1.4 1.1 2.2h5c0-.8.3-1.6 1.1-2.2A6 6 0 0 0 12 3z"/></symbol>
+    <symbol id="i-tree" viewBox="0 0 24 24"><path d="M12 21v-6"/><path d="M12 3a5 5 0 0 0-4.9 6A4 4 0 0 0 8 17h8a4 4 0 0 0 .9-7.9A5 5 0 0 0 12 3z"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 4.2 2.6 17.5A2 2 0 0 0 4.3 20.5h15.4a2 2 0 0 0 1.7-3L13.7 4.2a2 2 0 0 0-3.4 0z"/><path d="M12 9.5v4M12 17h.01"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1.5"/><rect x="14" y="4" width="6" height="6" rx="1.5"/><rect x="4" y="14" width="6" height="6" rx="1.5"/><rect x="14" y="14" width="6" height="6" rx="1.5"/></symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13.5" r="3.5"/></symbol>
+    <symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18H16a3 3 0 0 0 0-6H8a3 3 0 0 1 0-6h7.5"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20h16M7 16v-4M12 16V8M17 16V5"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 5 6v5.5c0 4.3 3 8 7 9.5 4-1.5 7-5.2 7-9.5V6z"/><path d="m9 12 2.2 2.2L15.5 10"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  </svg>
+
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a href="index.html" class="brand" aria-label="SIGEC, inicio">
+        <svg class="brand__mark" viewBox="0 0 30 36" aria-hidden="true">
+          <path d="M15 35S2 22.6 2 13.5a13 13 0 0 1 26 0C28 22.6 15 35 15 35z" fill="#128a4e"/>
+          <circle cx="15" cy="13.5" r="5.5" fill="#fff"/>
+        </svg>
+        <span class="brand__name">SIGEC</span>
+        <span class="brand__tag">Sistema de Gestión de Incidencias Comunitarias</span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Abrir menú">
+        <svg class="icon"><use href="#i-menu"/></svg>
+      </button>
+
+      <nav class="main-nav" id="main-nav" aria-label="Principal">
+        <ul>
+          <li><a href="#inicio" aria-current="page">Inicio</a></li>
+          <li><a href="#como-funciona">Cómo funciona</a></li>
+          <li><a href="#mapa">Mapa</a></li>
+          <li><a href="#estadisticas">Estadísticas</a></li>
+          <li><a href="#acerca">Acerca de</a></li>
+        </ul>
+      </nav>
+
+      <a href="reportar.html" class="btn btn--primary btn--sm header-cta">Reportar</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero" id="inicio">
+      <img class="hero__bg" src="assets/hero.jpg" alt="" width="1376" height="768" fetchpriority="high">
+      <div class="container">
+        <div class="hero__content">
+          <h1>Tu comunidad también cuenta</h1>
+          <p>Reporta, consulta y da seguimiento a los problemas de tu comunidad. Juntos construimos un Panamá más seguro, limpio y habitable.</p>
+          <div class="hero__actions">
+            <a href="reportar.html" class="btn btn--primary">
+              <svg class="icon"><use href="#i-plus-circle"/></svg>
+              Reportar una incidencia
+              <svg class="icon arrow"><use href="#i-arrow"/></svg>
+            </a>
+            <a href="#mapa" class="btn btn--ghost-light">
+              <svg class="icon"><use href="#i-pin"/></svg>
+              Ver el mapa
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Estadísticas -->
+    <section class="stats" id="estadisticas" aria-label="Estadísticas">
+      <dl class="container stats__grid">
+        <div class="stat">
+          <svg class="icon"><use href="#i-doc"/></svg>
+          <div><dt>Incidencias reportadas</dt><dd>1,248</dd></div>
+        </div>
+        <div class="stat">
+          <svg class="icon"><use href="#i-check-circle"/></svg>
+          <div><dt>Resueltas</dt><dd>892</dd></div>
+        </div>
+        <div class="stat">
+          <svg class="icon"><use href="#i-clock"/></svg>
+          <div><dt>Tiempo promedio de atención</dt><dd>3.4 días</dd></div>
+        </div>
+        <div class="stat">
+          <svg class="icon"><use href="#i-users"/></svg>
+          <div><dt>Ciudadanos activos</dt><dd>12,500</dd></div>
+        </div>
+      </dl>
+    </section>
+
+    <!-- Categorías -->
+    <section class="section">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <h2 class="section__title">¿Qué puedes reportar?</h2>
+            <p class="section__lead">Ayúdanos a identificar y resolver los problemas de tu comunidad.</p>
+          </div>
+          <a href="reportar.html" class="link-arrow">Reportar ahora <svg class="icon"><use href="#i-arrow"/></svg></a>
+        </div>
+
+        <ul class="categories">
+          <li><a class="category" href="reportar.html?categoria=basura">
+            <span class="category__icon"><svg class="icon"><use href="#i-trash"/></svg></span>
+            <h3>Basura</h3><p>Acumulación de residuos</p></a></li>
+          <li><a class="category" href="reportar.html?categoria=inundaciones">
+            <span class="category__icon"><svg class="icon"><use href="#i-drop"/></svg></span>
+            <h3>Inundaciones</h3><p>Zonas con riesgo o afectaciones</p></a></li>
+          <li><a class="category" href="reportar.html?categoria=vias">
+            <span class="category__icon"><svg class="icon"><use href="#i-road"/></svg></span>
+            <h3>Vías y aceras</h3><p>Huecos, daños y obstrucciones</p></a></li>
+          <li><a class="category" href="reportar.html?categoria=alumbrado">
+            <span class="category__icon"><svg class="icon"><use href="#i-bulb"/></svg></span>
+            <h3>Alumbrado público</h3><p>Luminarias dañadas o apagadas</p></a></li>
+          <li><a class="category" href="reportar.html?categoria=areas-verdes">
+            <span class="category__icon"><svg class="icon"><use href="#i-tree"/></svg></span>
+            <h3>Áreas verdes</h3><p>Parques y espacios deteriorados</p></a></li>
+          <li><a class="category" href="reportar.html?categoria=riesgos">
+            <span class="category__icon"><svg class="icon"><use href="#i-alert"/></svg></span>
+            <h3>Riesgos</h3><p>Estructuras, deslizamientos y peligros</p></a></li>
+          <li><a class="category" href="reportar.html?categoria=otros">
+            <span class="category__icon"><svg class="icon"><use href="#i-grid"/></svg></span>
+            <h3>Otros</h3><p>Más tipos de incidencias</p></a></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Cómo funciona + mapa -->
+    <section class="section section--soft" id="como-funciona">
+      <div class="container how">
+        <div>
+          <h2 class="section__title">¿Cómo funciona?</h2>
+          <p class="section__lead">Es rápido y sencillo. En solo unos pasos puedes hacer la diferencia.</p>
+          <ol class="steps">
+            <li class="step">
+              <span class="step__icon"><svg class="icon"><use href="#i-camera"/></svg></span>
+              <div><span class="step__label">Paso 1</span><h3>Reporta</h3><p>Toma una foto, describe el problema y comparte la ubicación.</p></div>
+            </li>
+            <li class="step">
+              <span class="step__icon"><svg class="icon"><use href="#i-route"/></svg></span>
+              <div><span class="step__label">Paso 2</span><h3>Se gestiona</h3><p>La incidencia se clasifica y se envía a la entidad correspondiente.</p></div>
+            </li>
+            <li class="step">
+              <span class="step__icon"><svg class="icon"><use href="#i-chart"/></svg></span>
+              <div><span class="step__label">Paso 3</span><h3>Da seguimiento</h3><p>Revisa el estado de tu reporte y consulta las actualizaciones.</p></div>
+            </li>
+          </ol>
+        </div>
+
+        <figure class="map-card" id="mapa" aria-label="Mapa de incidencias de ejemplo en Ciudad de Panamá">
+          <svg viewBox="0 0 640 420" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="640" height="420" fill="#eef1ec"/>
+            <!-- Agua (bahía) -->
+            <path d="M0 420V352c70-6 120 8 176-6 64-16 92-58 160-70 72-13 118 22 182 4 50-14 82-44 122-52V420z" fill="#cfe2ec"/>
+            <path d="M0 352c70-6 120 8 176-6 64-16 92-58 160-70 72-13 118 22 182 4 50-14 82-44 122-52" fill="none" stroke="#b9d3e0" stroke-width="2"/>
+            <!-- Parques -->
+            <path d="M68 78c30-18 78-10 92 18s-8 58-44 60-70-12-72-38 6-30 24-40z" fill="#d6e9d9"/>
+            <path d="M372 150c26-10 64-4 70 20s-16 40-44 40-48-14-46-32 6-22 20-28z" fill="#d6e9d9"/>
+            <path d="M210 230c18-8 44-2 48 14s-12 26-30 26-32-8-32-20 4-14 14-20z" fill="#d6e9d9"/>
+            <!-- Vías -->
+            <g fill="none" stroke="#fff" stroke-linecap="round">
+              <path d="M-10 200C120 180 220 210 330 190s210-60 320-50" stroke-width="10"/>
+              <path d="M180 -10c10 90 0 170 30 250s70 120 80 190" stroke-width="10"/>
+              <path d="M420 -10c-20 80 10 150-10 220" stroke-width="7"/>
+              <path d="M-10 110c90 10 200-20 300 0s180 30 360 10" stroke-width="6"/>
+              <path d="M40 300c80-30 140-20 200-50" stroke-width="5"/>
+              <path d="M300 40c60 30 120 30 200 70s100 60 150 60" stroke-width="5"/>
+              <path d="M90 -10c0 60 30 140 10 230" stroke-width="4"/>
+              <path d="M520 0c-10 60 10 120 0 200" stroke-width="4"/>
+            </g>
+            <g fill="none" stroke="#dfe4dc" stroke-width="1.5">
+              <path d="M-10 200C120 180 220 210 330 190s210-60 320-50"/>
+              <path d="M180 -10c10 90 0 170 30 250s70 120 80 190"/>
+            </g>
+            <!-- Etiquetas -->
+            <g font-family="Inter, system-ui, sans-serif" fill="#6b7785">
+              <text x="232" y="66" font-size="15" font-weight="500">San Miguelito</text>
+              <text x="236" y="252" font-size="17" font-weight="600" fill="#4f5b68">Ciudad de Panamá</text>
+              <text x="30" y="246" font-size="12">Betania</text>
+              <text x="430" y="252" font-size="12">Bella Vista</text>
+              <text x="230" y="392" font-size="12" fill="#7d98a8" font-style="italic">Bahía de Panamá</text>
+            </g>
+            <!-- Marcadores -->
+            <g>
+              <g transform="translate(318 120)"><path d="M0 0c-9-11-14-17-14-24a14 14 0 0 1 28 0c0 7-5 13-14 24z" fill="#128a4e"/><circle cy="-24" r="5" fill="#fff"/></g>
+              <g transform="translate(140 214)"><path d="M0 0c-9-11-14-17-14-24a14 14 0 0 1 28 0c0 7-5 13-14 24z" fill="#d48a1c"/><circle cy="-24" r="5" fill="#fff"/></g>
+              <g transform="translate(390 196)"><path d="M0 0c-9-11-14-17-14-24a14 14 0 0 1 28 0c0 7-5 13-14 24z" fill="#128a4e"/><circle cy="-24" r="5" fill="#fff"/></g>
+              <g transform="translate(220 310)"><path d="M0 0c-9-11-14-17-14-24a14 14 0 0 1 28 0c0 7-5 13-14 24z" fill="#2f6fa8"/><circle cy="-24" r="5" fill="#fff"/></g>
+              <g transform="translate(70 168)">
+                <circle r="20" cy="-24" fill="#c4372b" opacity=".15"/>
+                <path d="M0 0c-9-11-14-17-14-24a14 14 0 0 1 28 0c0 7-5 13-14 24z" fill="#c4372b"/><circle cy="-24" r="5" fill="#fff"/>
+              </g>
+            </g>
+          </svg>
+
+          <figcaption class="map-detail">
+            <div class="map-detail__top">
+              <span class="map-detail__thumb" style="display:grid;place-items:center;color:#128a4e">
+                <svg class="icon" style="width:30px;height:30px"><use href="#i-tree"/></svg>
+              </span>
+              <div>
+                <span class="badge">En atención</span>
+                <h3>Árbol caído</h3>
+                <span class="map-detail__meta"><svg class="icon"><use href="#i-pin"/></svg>Betania, Panamá</span>
+                <span class="map-detail__meta"><svg class="icon"><use href="#i-clock"/></svg>Hace 5 horas</span>
+              </div>
+            </div>
+            <p>Árbol caído obstruye parcialmente la vía después de las lluvias.</p>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Comunidades -->
+    <section class="section community" id="acerca">
+      <div class="container community__grid">
+        <div>
+          <h2 class="section__title">Comunidades más fuertes con información</h2>
+          <p class="lead">SIGEC promueve la participación ciudadana y el uso de datos para mejorar la calidad de vida en nuestros barrios y corregimientos.</p>
+          <a href="#como-funciona" class="btn btn--primary">Conoce más sobre SIGEC <svg class="icon arrow"><use href="#i-arrow"/></svg></a>
+        </div>
+        <ul class="pillars">
+          <li class="pillar"><svg class="icon"><use href="#i-users"/></svg><h3>Participación ciudadana</h3><p>Tu voz genera cambios reales.</p></li>
+          <li class="pillar"><svg class="icon"><use href="#i-chart"/></svg><h3>Datos para la acción</h3><p>Información que ayuda a decidir.</p></li>
+          <li class="pillar"><svg class="icon"><use href="#i-shield"/></svg><h3>Comunidades más seguras</h3><p>Entornos más limpios, ordenados y habitables.</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- CTA final -->
+    <section class="cta-band">
+      <img src="assets/cta.jpg" alt="" loading="lazy" decoding="async">
+      <div class="container cta-band__inner">
+        <h2>Un Panamá mejor también depende de ti</h2>
+        <p>Reporta, comparte y forma parte de la solución.</p>
+        <a href="reportar.html" class="btn btn--primary">
+          <svg class="icon"><use href="#i-plus-circle"/></svg>
+          Reportar ahora
+          <svg class="icon arrow"><use href="#i-arrow"/></svg>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <a href="index.html" class="brand" aria-label="SIGEC, inicio">
+        <svg class="brand__mark" viewBox="0 0 30 36" aria-hidden="true">
+          <path d="M15 35S2 22.6 2 13.5a13 13 0 0 1 26 0C28 22.6 15 35 15 35z" fill="#128a4e"/>
+          <circle cx="15" cy="13.5" r="5.5" fill="#fff"/>
+        </svg>
+        <span class="brand__name">SIGEC</span>
+        <span class="brand__tag">Sistema de Gestión de Incidencias Comunitarias</span>
+      </a>
+      <nav class="footer-nav" aria-label="Pie de página">
+        <a href="#inicio">Inicio</a>
+        <a href="#mapa">Mapa</a>
+        <a href="#estadisticas">Estadísticas</a>
+        <a href="reportar.html">Reportar</a>
+        <a href="#acerca">Contacto</a>
+      </nav>
+      <div class="social">
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4zM17.3 5.5a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4zM21.9 7.9c-.1-1.6-.4-3-1.6-4.2S17.7 2.2 16.1 2.1C14.4 2 9.6 2 7.9 2.1c-1.6.1-3 .4-4.2 1.6S2.2 6.3 2.1 7.9C2 9.6 2 14.4 2.1 16.1c.1 1.6.4 3 1.6 4.2s2.6 1.5 4.2 1.6c1.7.1 6.5.1 8.2 0 1.6-.1 3-.4 4.2-1.6s1.5-2.6 1.6-4.2c.1-1.7.1-6.5 0-8.2zm-2.1 10.3a3.3 3.3 0 0 1-1.9 1.9c-1.3.5-4.4.4-5.9.4s-4.6.1-5.9-.4a3.3 3.3 0 0 1-1.9-1.9c-.5-1.3-.4-4.4-.4-5.9s-.1-4.6.4-5.9a3.3 3.3 0 0 1 1.9-1.9c1.3-.5 4.4-.4 5.9-.4s4.6-.1 5.9.4a3.3 3.3 0 0 1 1.9 1.9c.5 1.3.4 4.4.4 5.9s.1 4.6-.4 5.9z"/></svg></a>
+        <a href="#" aria-label="X"><svg viewBox="0 0 24 24"><path d="M17.8 3h3.1l-6.8 7.7L22 21h-6.2l-4.9-6.4L5.3 21H2.2l7.2-8.3L1.8 3h6.4l4.4 5.8zm-1.1 16.2h1.7L7.4 4.7H5.6z"/></svg></a>
+        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8zM9.7 15V9l5.8 3z"/></svg></a>
+      </div>
+    </div>
+    <div class="container site-footer__legal">© 2026 SIGEC · Panamá</div>
+  </footer>
+
+  <script src="js/nav.js"></script>
+</body>
+</html>
